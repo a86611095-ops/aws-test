@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Deploy to EC2 (Docker Hub)
 
 on:
   push:
@@ -14,6 +14,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 1. Login to Docker Hub
+      - name: Login to Docker Hub
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      # 2. Build Docker Image
+      - name: Build Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/my-app:latest .
+
+      # 3. Push Image to Docker Hub
+      - name: Push Docker Image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+
+      # 4. Deploy on EC2
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
@@ -21,9 +37,13 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /home/ubuntu/aws-test
-            git pull origin main
-            npm install
-            npm run build
-            pm2 restart nest-app || pm2 start dist/main.js --name "nest-app"
-            pm2 save
+            docker pull ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+
+            docker stop my-app || true
+            docker rm my-app || true
+
+            docker run -d \
+              --name my-app \
+              -p 3000:4000 \
+              --restart always \
+              ${{ secrets.DOCKER_USERNAME }}/my-app:latest
