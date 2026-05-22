@@ -43,10 +43,13 @@ export class AuthService {
       },
     });
 
-    const response = await this.client.send(command);
-    console.log(response, "rees");
-        await this.publishUserSignup(email)
+    console.log("1. login start")
 
+  const response = await this.client.send(command)
+  console.log("2. cognito done")
+
+  await this.publishUserSignup(email)
+  console.log("3. sns done")
     return {
       accessToken: response.AuthenticationResult?.AccessToken,
       idToken: response.AuthenticationResult?.IdToken,
