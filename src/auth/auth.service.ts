@@ -34,6 +34,7 @@ export class AuthService {
   });
 
   async login(email: string, password: string) {
+    console.log("login here")
      const command = new InitiateAuthCommand({
       AuthFlow: "USER_PASSWORD_AUTH",
       ClientId: "7g56s0u9h6glmnpcgahno5et2n",
