@@ -10,8 +10,8 @@ export class AuthController {
     console.log("controller")
     return this.authService.login(body.email, body.password);
   }
-  @Post('msg')
-  async queue() {
-    return this.authService.pollMessage();
-  }
+  // @Post('msg')
+  // async queue() {
+  //   return this.authService.pollMessage();
+  // }
 }
