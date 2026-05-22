@@ -46,7 +46,5 @@ jobs:
               --name my-app \
               -p 3000:4000 \
               --restart always \
-              -e AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }} \
-               -e AWS_SECRET=${{ secrets.AWS_SECRET }} 
               ${{ secrets.DOCKER_USERNAME }}/my-app:latest
               
