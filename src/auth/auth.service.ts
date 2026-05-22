@@ -34,28 +34,29 @@ export class AuthService {
   });
 
   async login(email: string, password: string) {
-    console.log("login here")
-     const command = new InitiateAuthCommand({
-      AuthFlow: "USER_PASSWORD_AUTH",
-      ClientId: "7g56s0u9h6glmnpcgahno5et2n",
-      AuthParameters: {
-        USERNAME: email,
-        PASSWORD: password,
-      },
-    });
+  //   console.log("login here")
+  //    const command = new InitiateAuthCommand({
+  //     AuthFlow: "USER_PASSWORD_AUTH",
+  //     ClientId: "7g56s0u9h6glmnpcgahno5et2n",
+  //     AuthParameters: {
+  //       USERNAME: email,
+  //       PASSWORD: password,
+  //     },
+  //   });
 
-    console.log("1. login start")
+  //   console.log("1. login start")
 
-  const response = await this.client.send(command)
-  console.log("2. cognito done")
+  // const response = await this.client.send(command)
+  // console.log("2. cognito done")
 
-  await this.publishUserSignup(email)
-  console.log("3. sns done")
-    return {
-      accessToken: response.AuthenticationResult?.AccessToken,
-      idToken: response.AuthenticationResult?.IdToken,
-      refreshToken: response.AuthenticationResult?.RefreshToken,
-    };
+  // await this.publishUserSignup(email)
+  // console.log("3. sns done")
+  //   return {
+  //     accessToken: response.AuthenticationResult?.AccessToken,
+  //     idToken: response.AuthenticationResult?.IdToken,
+  //     refreshToken: response.AuthenticationResult?.RefreshToken,
+  //   };
+  return "hi"
   }
    async readQueue(email: string, password: string) {
    return 'hi'
