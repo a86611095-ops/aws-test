@@ -8,7 +8,9 @@ import {
   InitiateAuthCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 dotenv.config();
-console.log(process.env.AWS_ACCESS_KEY,"envv")
+console.log(process.env.AWS_ACCESS_KEY,"AWS_ACCESS_KEY")
+console.log(process.env.AWS_SECRET,"AWS_SECRET")
+
 
 const sns = new SNSClient({
   region: "us-east-1",
