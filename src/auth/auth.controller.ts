@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get ,Headers} from '@nestjs/common';
 import { AuthService } from './auth.service';
 
 @Controller('')
@@ -11,7 +11,7 @@ export class AuthController {
     return this.authService.login(body.email, body.password);
   }
    @Get('health')
-  async getHealth() {
+async getHealth(@Headers('authorization') authHeader: string) {
     return 'Ok'
   }
   // @Post('msg')

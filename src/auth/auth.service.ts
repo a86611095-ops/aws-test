@@ -85,7 +85,6 @@ async pollMessage(){
   const message=response.Messages||[]
   for (const msg of message){
     try {
-      throw  new Error("failed")
       console.log("actual msg ",msg.Body)
       console.log("body",msg.Body)
       const body=JSON.parse(msg.Body!)
