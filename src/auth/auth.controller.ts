@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get ,Headers} from '@nestjs/common';
+import { Controller, Post, Body, Get ,Headers, Req} from '@nestjs/common';
 import { AuthService } from './auth.service';
 
 @Controller('')
@@ -11,9 +11,10 @@ export class AuthController {
     return this.authService.login(body.email, body.password);
   }
 @Get('health')
-getHealth(@Headers() headers: any) {
+getHealth(@Req() req: any) {
+  console.log("h",req.headers)
   return {
-    userId: headers['x-user-id'],
+    userId: req.headers['x-user-id'],
   };
 }
 }
