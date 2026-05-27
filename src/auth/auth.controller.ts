@@ -10,12 +10,10 @@ export class AuthController {
     console.log("controller")
     return this.authService.login(body.email, body.password);
   }
-   @Get('health')
-async getHealth(@Headers('authorization') authHeader: string) {
-    return 'Ok'
-  }
-  // @Post('msg')
-  // async queue() {
-  //   return this.authService.pollMessage();
-  // }
+@Get('health')
+getHealth(@Headers() headers: any) {
+  return {
+    userId: headers['x-user-id'],
+  };
+}
 }

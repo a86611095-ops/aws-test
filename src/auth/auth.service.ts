@@ -32,14 +32,14 @@ const topic="arn:aws:sns:us-east-1:389548782125:user-event-topic"
 
 export class AuthService {
   private client = new CognitoIdentityProviderClient({
-    region: "eu-north-1",
+    region: "us-east-1",
   });
 
   async login(email: string, password: string) {
     console.log("login here")
      const command = new InitiateAuthCommand({
       AuthFlow: "USER_PASSWORD_AUTH",
-      ClientId: "7g56s0u9h6glmnpcgahno5et2n",
+      ClientId: "2tmm1c0d1aip5c0tiviq1ldv5",
       AuthParameters: {
         USERNAME: email,
         PASSWORD: password,
