@@ -13,6 +13,7 @@ export class AuthController {
 @Get('health')
 getHealth(@Req() req: any) {
   console.log("h",req.headers)
+  console.log(event.requestContext.authorizer);
   return {
     userId: req.headers['x-user-id'],
   };
