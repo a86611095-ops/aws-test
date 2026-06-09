@@ -8,7 +8,7 @@ async function bootstrap() {
   app.useGlobalPipes(); // optional for future validation
 
   await app.listen(4000);
-  console.log(` running n http://localhost:4000`);
+  console.log(` running nhttp://localhost:4000`);
 }
 
 bootstrap();
