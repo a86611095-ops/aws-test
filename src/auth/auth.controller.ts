@@ -1,5 +1,6 @@
-import { Controller, Post, Body, Get ,Headers, Req} from '@nestjs/common';
+import { Controller, Post, Body, Get ,Headers, Req, Put, UseInterceptors} from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('')
 export class AuthController {
@@ -17,5 +18,19 @@ getHealth(@Req() req: any) {
   return {
     userId: req.headers['x-user-id'],
   };
+}
+@Put('file')
+@UseInterceptors(FileInterceptor('file'))
+
+uploadFile(@Req() req: any) {
+  console.log("h",req.headers)
+  console.log("rrr",req);
+  return this.authService.uploadFile(req.file);
+}
+@Get('file')
+
+getImage(@Body() body: { key: string}) {
+
+  return this.authService.getImageUrl(body.key);
 }
 }

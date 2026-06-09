@@ -7,6 +7,8 @@ import {
 
   InitiateAuthCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
+import { GetObjectAclCommand, GetObjectCommand, PutObjectAclCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 dotenv.config();
 console.log(process.env.AWS_ACCESS_KEY,"AWS_ACCESS_KEY")
 console.log(process.env.AWS_SECRET,"AWS_SECRET")
@@ -25,6 +27,9 @@ const sqs=new SQSClient({   region: "us-east-1",
     secretAccessKey: process.env.AWS_SECRET!,
   }
 })
+const s3 = new S3Client({
+  region: "us-east-1" // change to your bucket region
+});
   const queue="https://sqs.us-east-1.amazonaws.com/389548782125/user-signup-queue"
 
 const topic="arn:aws:sns:us-east-1:389548782125:user-event-topic"
@@ -34,7 +39,48 @@ export class AuthService {
   private client = new CognitoIdentityProviderClient({
     region: "us-east-1",
   });
+  
+ async getImageUrl(key: string) {
+    const command = new GetObjectCommand({
+      Bucket: 'arya-app-45678',
+      Key: key,
+    });
 
+    const url = await getSignedUrl(
+      s3,
+      command,
+      {
+        expiresIn: 3600, // 1 hour
+      },
+    );
+
+    return { url };
+  }
+async uploadFile(file:any) {
+  try {
+    const key = `dev/${Date.now()}-${file.originalname}`;
+
+    await s3.send(
+      new PutObjectCommand({
+        Bucket: "arya-app-45678",
+        Key: key,
+        Body: file.buffer,
+        ContentType: file.mimetype,
+      })
+    );
+
+    console.log("Upload successful");
+
+    return {
+      success: true,
+      key,
+    };
+
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
   async login(email: string, password: string) {
     console.log("login here")
      const command = new InitiateAuthCommand({
