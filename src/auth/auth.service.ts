@@ -69,7 +69,7 @@ async uploadFile(file:any) {
       })
     );
 
-    console.log("Upload successful");
+    console.log("Uload successful");
 
     return {
       success: true,
