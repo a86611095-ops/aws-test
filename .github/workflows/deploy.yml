@@ -56,4 +56,9 @@ jobs:
               -e COGNITO_CLIENT_ID=${{ secrets.COGNITO_CLIENT_ID }} \
               -e SNS_TOPIC_ARN=${{ secrets.SNS_TOPIC_ARN }} \
               -e SQS_QUEUE_URL=${{ secrets.SQS_QUEUE_URL }} \
+              -e DB_HOST=${{ secrets.DB_HOST }} \
+              -e DB_PORT=${{ secrets.DB_PORT }} \
+              -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
+              -e DB_PASSWORD='${{ secrets.DB_PASSWORD }}' \
+              -e DB_NAME=${{ secrets.DB_NAME }} \
               ${{ secrets.DOCKER_USERNAME }}/my-app:latest
