@@ -7,7 +7,8 @@ import dotenv from 'dotenv'
 dotenv.config();
 
 @Module({
-  imports: [AuthModule,UserModule, TypeOrmModule.forRoot({
+   imports: [AuthModule, UserModule,
+    TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
@@ -18,7 +19,8 @@ dotenv.config();
       ssl: {
     rejectUnauthorized: false,
   },
-      synchronize: true, 
-    }),],
+     synchronize: true, 
+    }),
+    ],
 })
 export class AppModule {}

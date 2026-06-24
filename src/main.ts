@@ -1,14 +1,28 @@
 import { NestFactory } from '@nestjs/core';
+import { createClient } from 'redis';
 import { AppModule } from './app.module';
 
+export const redisClient = createClient({
+  url: 'redis://localhost:6379',
+});
+
 async function bootstrap() {
+  // // await redisClient.connect();
+
+  // // redisClient.on('error', (err) => {
+  // //   console.error('Redis Error:', err);
+  // // });
+
+  // console.log('Redis Connected');
+
   const app = await NestFactory.create(AppModule);
 
   app.enableCors();
-  app.useGlobalPipes(); // optional for future validation
+  app.useGlobalPipes();
 
   await app.listen(4000);
-  console.log(` running nhttp://localhost:4000`);
+
+  console.log('Running on http://localhost:4000');
 }
 
 bootstrap();
