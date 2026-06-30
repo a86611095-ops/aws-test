@@ -22,7 +22,7 @@ async function bootstrap() {
 
   await app.listen(4000);
 
-  console.log('Running on ttp://localhost:4000');
+  console.log('Runnig on ttp://localhost:4000');
 }
 
 bootstrap();
